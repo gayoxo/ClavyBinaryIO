@@ -22,6 +22,8 @@ import fdi.ucm.server.modelComplete.collection.document.CompleteFile;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteElementType;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteGrammar;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteOperationalValueType;
+import fdi.ucm.server.modelComplete.collection.grammar.CompleteOperationalView;
+import fdi.ucm.server.modelComplete.collection.grammar.CompleteStructure;
 
 /**
  * Clase que impementa el plugin de oda para Localhost
@@ -178,11 +180,14 @@ public class SaveCollectionBinary extends SaveCollection {
 
 			int n3 = (new Random()).nextInt(10);
 			for (int j = 0; j < n3; j++) 
-				{	CompleteOperationalValueType OP=new CompleteOperationalValueType(new Long(j),"View"+ j+"name","View"+ j+"def","View"+j+"view");
-					GG.getViews().add(OP);
+				{	
+				CompleteOperationalView CV=new CompleteOperationalView("View"+j+"view");
+				CompleteOperationalValueType OP=new CompleteOperationalValueType(new Long(j),"View"+ j+"name","View"+ j+"def",CV);
+				CV.getValues().add(OP);
+				GG.getViews().add(CV);	
 				}
 				
-			ArrayList<CompleteElementType> hijos=new ArrayList<CompleteElementType>();	
+			ArrayList<CompleteStructure> hijos=new ArrayList<CompleteStructure>();	
 			generahijos(hijos,GG,Elements,new Integer(20));
 			GG.setSons(hijos);
 			
@@ -192,7 +197,7 @@ public class SaveCollectionBinary extends SaveCollection {
 		return C;
 	}
 
-	private static void generahijos(ArrayList<CompleteElementType> hijos, CompleteGrammar gG,
+	private static void generahijos(ArrayList<CompleteStructure> hijos, CompleteGrammar gG,
 			List<CompleteElementType> elements, Integer integer) {
 		int n = (new Random()).nextInt(integer);
 		for (int i = 0; i < n; i++) 
@@ -201,22 +206,20 @@ public class SaveCollectionBinary extends SaveCollection {
 			hijos.add(CET);
 			elements.add(CET);
 			
-			CET.setBeFilter((new Random()).nextBoolean());
-			CET.setMultivalued((new Random()).nextBoolean());
-			CET.setSelectable((new Random()).nextBoolean());
-			CET.setBrowseable((new Random()).nextBoolean());
 			
 			int n3 = (new Random()).nextInt(10);
 			for (int j = 0; j < n3; j++) 
 				{	
-					CompleteOperationalValueType OP=new CompleteOperationalValueType(new Long(j),"View"+ j+"name","View"+ j+"def","View"+j+"view");
-					CET.getShows().add(OP);
+				CompleteOperationalView CV=new CompleteOperationalView("View"+j+"view");
+				CompleteOperationalValueType OP=new CompleteOperationalValueType(new Long(j),"View"+ j+"name","View"+ j+"def",CV);
+				CV.getValues().add(OP);
+					CET.getShows().add(CV);
 				}
 			
 			
 			if ((new Random()).nextBoolean())
 			{
-				ArrayList<CompleteElementType> hijos1=new ArrayList<CompleteElementType>();	
+				ArrayList<CompleteStructure> hijos1=new ArrayList<CompleteStructure>();	
 				generahijos(hijos1,gG,elements,new Integer(integer/2));
 				CET.setSons(hijos1);
 			}
