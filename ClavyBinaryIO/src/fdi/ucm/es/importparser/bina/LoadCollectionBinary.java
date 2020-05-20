@@ -34,7 +34,7 @@ public class LoadCollectionBinary extends LoadCollection{
 		
 		
 		ArrayList<String> AA = new ArrayList<String>();
-		AA.add("testin.clavy");
+		AA.add("Arte.clavy");
 		
 		CompleteCollectionAndLog Salida=LC.processCollecccion(AA);
 		if (Salida!=null)
